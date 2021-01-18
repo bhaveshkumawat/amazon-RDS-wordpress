@@ -1,0 +1,46 @@
+
+                                                                       Amazon RDS combined with Wordpress
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Configure and launch Amazon RDS services.
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Launch an AWS EC2 Instance prefer RedHat(linux)
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+WordPress SetUp Procedure in a instance: 
+
+httpd software foe webserver
+# yum install httpd -y
+
+wget package requires to download files over internet 
+# yum install vim wget -y
+
+installing epel repository
+# yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+
+installing remi repository
+# yum -y install https://rpms.remirepo.net/enterprise/remi-release-8.rpm
+
+installing php 7.4
+# dnf module install php:remi-7.4
+
+installing native driver of mysql for php
+# dnf install php-mysqlnd
+
+downloading wordpress tar
+# wget https://wordpress.org/latest.tar.gz
+
+unpacking tar package and copying files in root directory for webserver that is /var/www/html
+# tar xf latest.tar.gz -C /var/www/html
+
+Giving permission to change files in the root directory
+#setenforce 0
+#chcon -t httpd_sys_rw_content_t /var/www/html/wordpress -R
+
+starting services of httpd
+# systemctl start httpd
+
+command to query for services of httpd
+# systemctl status httpd
